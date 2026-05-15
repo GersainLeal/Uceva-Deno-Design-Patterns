@@ -1,61 +1,43 @@
 ## Patrones de diseño
 
-El código está escrito en TypeScript y usamos Deno para ejecutarlo, puedes usar Bun o Node si lo prefieres.
+---
 
-Si usas Node, deberás configurar TypeScript, por lo que te recomiendo Deno o Bun.
+# Integrantes
 
-## Ejecución de Archivos
+## Juan Manuel Martinez Jojoa - 230222002
+## Gersain Leal Muñoz - 230222024
 
-### Ejecutar Archivo Una Vez
-```
-cd 01-Patrones-Creacionales/01-Builder
-```
-```
-deno builder.ts
-```
-```
-deno builder.task.ts
-```
+---
 
-### Ejecutar Archivo de Forma Automatica
-```
-cd 01-Patrones-Creacionales/01-Builder
-```
-```
-deno --watch builder.ts
-```
-```
-deno --watch builder.task.ts
-```
+# Lista de patrones utilizados
 
-# Recursos adicionales
+## Juan Manuel
 
-* [Refactoring Guru](https://refactoring.guru/es/design-patterns/catalog)
+### Builder
+- **Problema:** Personalización flexible de hamburguesas en un restaurante.
+- **Por qué Builder:** Permite construir hamburguesas con diferentes ingredientes paso a paso, sin múltiples constructores.
+- **Archivo:** 01-Patrones-Creacionales/01-Builder/builder.actividad.ts
 
-* [Design Patterns for Humans](https://github.com/kamranahmedse/design-patterns-for-humans?tab=readme-ov-file)
+### Adapter
+- **Problema:** Integrar diferentes servicios de pago (PayPal, Stripe, MercadoPago) bajo una interfaz común.
+- **Por qué Adapter:** Permite unificar la interfaz y desacoplar el sistema de los servicios externos.
+- **Archivo:** 02-Patrones-Estructurales/01-Adapter/adapter.actividad.ts
 
-* [Patterns.dev](https://www.patterns.dev/)
+### Singleton
+- **Problema:** Gestión centralizada de la configuración global de una aplicación.
+- **Por qué Singleton:** Garantiza una única instancia y acceso global a la configuración.
+- **Archivo:** 01-Patrones-Creacionales/06-Singleton/singleton.actividad.ts
 
-* [Java Design Patterns](https://github.com/iluwatar/java-design-patterns)
+### Mediator
+- **Problema:** Coordinación de aviones en una torre de control de aeropuerto.
+- **Por qué Mediator:** Centraliza la comunicación y reduce dependencias entre aviones.
+- **Archivo:** 03-Patrones-Comportamiento/04-Mediator/mediator.actividad.ts
 
-* [Design Patterns TypeScript](https://github.com/torokmark/design_patterns_in_typescript?tab=readme-ov-file)
+### Proxy
+- **Problema:** Controlar el acceso a documentos confidenciales según el rol del usuario.
+- **Por qué Proxy:** Permite verificar permisos antes de mostrar el documento.
+- **Archivo:** 02-Patrones-Estructurales/07-Proxy/proxy.actividad.ts
 
-# Listado de Patrones Recomendados para el Curso
+---
 
-## Creacionales
-- Builder
-- Abstract Factory
-- Factory Function
-- Singleton
-
-## Estructurales
-- Adapter
-- Composite
-- Facade
-- Flyweight
-
-## Comportamiento
-- Chain Responsability
-- Observer
-- Strategy
-- Template Method
+## Gersain
