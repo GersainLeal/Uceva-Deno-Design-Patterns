@@ -2,66 +2,75 @@
  * Patrón Adapter - Actividad
  *
  * 1. Problema:
- * Supón que desarrollas una aplicación de pagos en línea y necesitas integrar diferentes servicios de pago (PayPal, Stripe y MercadoPago), cada uno con su propia interfaz. Tu sistema requiere una interfaz unificada para procesar pagos sin importar el proveedor.
+ * En una aplicación, se quiere unificar el registro de logs tanto en consola local como usando una librería externa, pero ambas tienen interfaces distintas. Se requiere una interfaz común para que el sistema pueda registrar logs sin preocuparse del origen.
  *
  * 2. ¿Por qué Adapter es adecuado?
- * El patrón Adapter permite que clases con interfaces incompatibles trabajen juntas. Así, puedes integrar servicios de terceros sin modificar su código, adaptando sus métodos a una interfaz común.
+ * Permite que el sistema use indistintamente el logger local o el de la librería externa a través de una interfaz común, desacoplando la lógica de logueo del resto de la aplicación.
  *
  * 3. Implementación funcional:
  */
 
 // Interfaz objetivo
-interface PaymentProcessor {
-  processPayment(amount: number): void;
+interface LoggerTarget {
+  log(msg: string): void;
+  warn(msg: string): void;
+  error(msg: string): void;
 }
 
-// Servicios de pago externos
-class PayPalService {
-  sendPayment(amount: number): void {
-    console.log(`Pagando $${amount} con PayPal`);
+// Logger local existente
+class LocalLogger implements LoggerTarget {
+  constructor(private file: string) {}
+  log(msg: string) {
+    console.log(`[${this.file} Log] ${msg}`);
   }
-}
-class StripeService {
-  makeCharge(amount: number): void {
-    console.log(`Pagando $${amount} con Stripe`);
+  warn(msg: string) {
+    console.log(`[${this.file} Warning] ${msg}`);
   }
-}
-class MercadoPagoService {
-  pay(amount: number): void {
-    console.log(`Pagando $${amount} con MercadoPago`);
+  error(msg: string) {
+    console.log(`[${this.file} Error] ${msg}`);
   }
 }
 
-// Adaptadores
-class PayPalAdapter implements PaymentProcessor {
-  private service = new PayPalService();
-  processPayment(amount: number): void {
-    this.service.sendPayment(amount);
-  }
+// Simulación de una librería externa de logs
+class ExternalLogger {
+  info(msg: string) { console.log(`[External INFO] ${msg}`); }
+  warning(msg: string) { console.log(`[External WARNING] ${msg}`); }
+  fatal(msg: string) { console.log(`[External FATAL] ${msg}`); }
 }
-class StripeAdapter implements PaymentProcessor {
-  private service = new StripeService();
-  processPayment(amount: number): void {
-    this.service.makeCharge(amount);
+
+// Adaptador para la librería externa
+class ExternalLoggerAdapter implements LoggerTarget {
+  private extLogger = new ExternalLogger();
+  constructor(private file: string) {}
+  log(msg: string) {
+    this.extLogger.info(`[${this.file}] ${msg}`);
   }
-}
-class MercadoPagoAdapter implements PaymentProcessor {
-  private service = new MercadoPagoService();
-  processPayment(amount: number): void {
-    this.service.pay(amount);
+  warn(msg: string) {
+    this.extLogger.warning(`[${this.file}] ${msg}`);
+  }
+  error(msg: string) {
+    this.extLogger.fatal(`[${this.file}] ${msg}`);
   }
 }
 
 // 4. Ejemplo de uso y documentación:
-const payments: PaymentProcessor[] = [
-  new PayPalAdapter(),
-  new StripeAdapter(),
-  new MercadoPagoAdapter(),
+const loggers: LoggerTarget[] = [
+  new LocalLogger('local.log'),
+  new ExternalLoggerAdapter('externo.log'),
 ];
 
-for (const processor of payments) {
-  processor.processPayment(100);
+for (const logger of loggers) {
+  logger.log('Mensaje informativo');
+  logger.warn('Mensaje de advertencia');
+  logger.error('Mensaje de error');
 }
+
+/**
+ * Documentación:
+ * - El problema es unificar el registro de logs con diferentes orígenes.
+ * - Adapter permite usar ambos sistemas de logueo con la misma interfaz.
+ * - El código muestra cómo el sistema puede registrar logs sin preocuparse del origen.
+ */
 
 /**
  * Documentación:
