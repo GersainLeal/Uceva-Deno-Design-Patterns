@@ -1,6 +1,6 @@
 /**
- * Patrón: Flyweight (Ejercicio - archivo de entrega del alumno)
- * Integrantes: [Tu Nombre], [Tu Pareja]
+ * Patrón: Flyweight 
+ * 
  *
  * Problema real (nuevo):
  *  Un editor de texto debe representar documentos muy largos. Cada carácter
@@ -92,4 +92,4 @@ function main() {
   console.log('%cConclusión: usando Flyweight el número de glyphs es mucho menor que el número total de caracteres.', COLORS.green);
 }
 
-if (import.meta.main) main();
+main();
