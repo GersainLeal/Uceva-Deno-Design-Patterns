@@ -2,63 +2,70 @@
  * Patrón Mediator - Actividad
  *
  * 1. Problema:
- * En una torre de control de aeropuerto, los aviones no deben comunicarse directamente entre sí para evitar confusiones y colisiones. Toda comunicación debe pasar por la torre de control, que coordina los mensajes y permisos.
+ * En un sistema de chat grupal, los usuarios pueden enviar mensajes públicos o privados. El mediador (el chat) decide si el mensaje es público (para todos) o privado (solo para el destinatario).
  *
  * 2. ¿Por qué Mediator es adecuado?
- * El patrón Mediator centraliza la comunicación entre objetos (aviones), reduciendo dependencias y simplificando la coordinación.
+ * El patrón Mediator centraliza la lógica de envío de mensajes y reduce dependencias directas entre usuarios.
  *
  * 3. Implementación funcional:
  */
 
-class ControlTower {
-  private airplanes: Airplane[] = [];
+class ChatMediator {
+  private users: User[] = [];
 
-  register(airplane: Airplane) {
-    this.airplanes.push(airplane);
+  register(user: User) {
+    this.users.push(user);
   }
 
-  notify(sender: Airplane, message: string) {
-    for (const airplane of this.airplanes) {
-      if (airplane !== sender) {
-        airplane.receive(message, sender);
+  sendMessage(sender: User, message: string, recipient?: User) {
+    if (recipient) {
+      // Mensaje privado
+      recipient.receiveMessage(`Privado de ${sender.getName()}: ${message}`);
+    } else {
+      // Mensaje público
+      for (const user of this.users) {
+        if (user !== sender) {
+          user.receiveMessage(`Público de ${sender.getName()}: ${message}`);
+        }
       }
     }
   }
 }
 
-class Airplane {
-  constructor(private id: string, private tower: ControlTower) {
-    tower.register(this);
+class User {
+  constructor(private name: string, private chat: ChatMediator) {
+    chat.register(this);
   }
 
-  requestLanding() {
-    console.log(`${this.id} solicita aterrizaje.`);
-    this.tower.notify(this, `${this.id} va a aterrizar.`);
+  getName() { return this.name; }
+
+  sendPublic(message: string) {
+    this.chat.sendMessage(this, message);
   }
 
-  requestTakeoff() {
-    console.log(`${this.id} solicita despegue.`);
-    this.tower.notify(this, `${this.id} va a despegar.`);
+  sendPrivate(message: string, recipient: User) {
+    this.chat.sendMessage(this, message, recipient);
   }
 
-  receive(message: string, sender: Airplane) {
-    console.log(`${this.id} recibe de ${sender.id}: ${message}`);
+  receiveMessage(message: string) {
+    console.log(`${this.name} recibe: ${message}`);
   }
 }
 
 // 4. Ejemplo de uso y documentación:
-const tower = new ControlTower();
-const a1 = new Airplane('Vuelo 1', tower);
-const a2 = new Airplane('Vuelo 2', tower);
-const a3 = new Airplane('Vuelo 3', tower);
+const chat = new ChatMediator();
+const alice = new User('Alice', chat);
+const bob = new User('Bob', chat);
+const carol = new User('Carol', chat);
 
-a1.requestLanding();
-a2.requestTakeoff();
-a3.requestLanding();
+alice.sendPublic('¡Hola a todos!');
+bob.sendPrivate('Hola Alice, ¿cómo estás?', alice);
+carol.sendPublic('¡Bienvenidos al chat!');
 
 /**
  * Documentación:
- * - El problema es la coordinación segura entre aviones.
- * - Mediator centraliza la comunicación y reduce dependencias.
- * - El código muestra cómo la torre de control gestiona los mensajes entre aviones.
+ * - El problema es la gestión de mensajes públicos y privados en un chat grupal.
+ * - Mediator centraliza la lógica de envío y reduce dependencias entre usuarios.
+ * - El código muestra cómo el mediador decide el tipo de mensaje y su destinatario.
  */
+
