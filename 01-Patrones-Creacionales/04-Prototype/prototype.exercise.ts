@@ -1,6 +1,6 @@
 /**
  * Patrón: Prototype (Ejercicio - archivo de entrega del alumno)
- * Integrantes: [Tu Nombre], [Tu Pareja]
+ * 
  *
  * Problema real:
  *  En un videojuego queremos crear enemigos basados en plantillas (arquetipos).

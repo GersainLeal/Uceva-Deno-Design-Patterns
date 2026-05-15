@@ -1,6 +1,6 @@
 /**
  * Patrón: Observer (Ejercicio - archivo de entrega del alumno)
- * Integrantes: [Tu Nombre], [Tu Pareja]
+ * 
  *
  * Problema real:
  *  Un sitio de noticias permite a los usuarios suscribirse a distintas
