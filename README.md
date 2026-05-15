@@ -46,3 +46,28 @@
 ---
 
 ## Gersain
+
+### Flyweight
+- **Problema:** Representar documentos/objetos con muchas instancias similares (p. ej. glifos/caracteres en un editor) sin consumir mucha memoria.
+- **Por qué Flyweight:** Permite compartir el estado intrínseco (la forma del glifo) entre muchas instancias, manteniendo el estado extrínseco (posición, color) fuera del flyweight y reduciendo el uso de memoria.
+- **Archivo:** 02-Patrones-Estructurales/06-Flyweight/flyweight.exercise.ts
+
+### Observer
+- **Problema:** Notificar a múltiples suscriptores cuando se publica contenido en categorías distintas (p. ej. sistema de noticias por temas) sin acoplar el emisor a los consumidores.
+- **Por qué Observer:** Desacopla al publicador de los suscriptores y permite añadir o quitar observadores dinámicamente, facilitando extensibilidad y mantenimiento.
+- **Archivo:** 03-Patrones-Comportamiento/06-Observer/observer.exercise.ts
+
+### Prototype
+- **Problema:** Generar rápidamente múltiples enemigos o entidades en un videojuego a partir de plantillas (arquetipos) con pequeñas variaciones.
+- **Por qué Prototype:** Permite clonar arquetipos sin depender de constructores complejos, creando copias independientes y eficientes (copia profunda cuando hace falta).
+- **Archivo:** 01-Patrones-Creacionales/04-Prototype/prototype.exercise.ts
+
+### Memento
+- **Problema:** Implementar undo/redo en un editor de texto (guardar y restaurar snapshots del documento) sin exponer la representación interna del documento.
+- **Por qué Memento:** Captura y restaura el estado interno del originador de forma encapsulada, ideal para historial de cambios (undo/redo).
+- **Archivo:** 03-Patrones-Comportamiento/05-Memento/memento.exercise.ts
+
+### Strategy
+- **Problema:** Calcular el costo de envío en una tienda online usando diferentes políticas (estándar, exprés, gratis sobre cierto monto) intercambiables en tiempo de ejecución.
+- **Por qué Strategy:** Encapsula algoritmos de cálculo en estrategias separadas, permitiendo cambiar la política sin modificar el cliente (orden/calculadora).
+- **Archivo:** 03-Patrones-Comportamiento/08-Strategy/strategy.exercise.ts
